@@ -1,0 +1,27 @@
+#CV{
+    width: 21cm;
+    background-color: #c5bcbc;
+    padding: 12px;
+}
+.full_line{
+    width: 100%;
+    height: 2px;
+    background-color: red;
+}
+.Heading_1{
+    text-align: center;
+}
+.Heading_2{
+    text-align: center;
+    line-height: 0.0000000001px;
+}
+section h5{
+    background-color: aquamarine;
+    width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto; 
+}
+section p{
+    font-size: 10px;
+}
