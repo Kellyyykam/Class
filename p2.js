@@ -46,11 +46,32 @@ const arr = {
         return false;
     },
     some: function(searchFunction){
-        // search whole array 
-        // call searchFunction (this.content[i], i)
-        // searchFunction should return true or false
-
-    }
+        let result = false;
+        for (let i = 0; i < this.length; i = i + 1){
+            if (searchFunction(this.content[i],i)){
+                result = searchFunction(this.content[i],i)
+            }
+        }
+        return result;
+    },
+    every: function(searchFunction){
+        let result = true;
+        for (let i = 0; i < this.length; i = i + 1){
+            result = result && searchFunction(this.content[i],i)
+        }
+        return result;
+    },
+    find: function(searchFunction){
+        for (let i = 0; i < this.length; i = i + 1){
+            if (searchFunction(this.content[i],i)){
+                return this.content[i];
+            }
+        }
+        return undefined;
+    },
 }
 
-console.log(arr.includes(4));
+let isOdd = arr.find(function(num){
+    return num % 2 === 1
+});
+console.log(isOdd);
