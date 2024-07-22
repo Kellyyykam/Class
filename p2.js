@@ -69,9 +69,52 @@ const arr = {
         }
         return undefined;
     },
+    findIndex: function(searchFunction){
+        for (let i = 0; i < this.length; i = i + 1){
+            if (searchFunction(this.content[i],i)){
+                return i;
+            }
+        }
+        return -1;
+    },
+    findLast: function(searchFunction){
+        for (let i = this.length - 1; i >= 0; i = i - 1){
+            if (searchFunction(this.content[i],i)){
+                return this.content[i];
+            }
+        }
+        return undefined;
+    },
+    filter: function(searchFunction){
+        let newArray = [];
+        for (let i = 0; i < this.length; i = i + 1){
+            if (searchFunction(this.content[i],i)){
+                newArray.push(this.content[i]);
+            }
+        }
+        return newArray
+    },
+    map: function(processingFunction){
+        let newArray = [];
+        for (let i = 0; i < this.length; i = i + 1){
+            newArray.push(processingFunction(this.content[i],i));
+        }
+        return newArray
+    },
+    concat: function(...rest){
+        let newArray = [];
+        for (let i = 0; i < rest.length; i = i + 1){
+            if (Array.isArray(rest[i])){
+                for (let j = 0; j < rest[i].length; j = j + 1){
+                    newArray.push(rest[i][j]);
+                }
+            } else{
+                newArray.push(rest[i]);
+            }
+        }
+        return newArray
+    },
 }
 
-let isOdd = arr.find(function(num){
-    return num % 2 === 1
-});
-console.log(isOdd);
+let combinedArray = arr.content.concat(2, 3, [5, 6], [[7],[8]]);
+console.log(combinedArray);
