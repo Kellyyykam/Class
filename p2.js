@@ -114,7 +114,24 @@ const arr = {
         }
         return newArray
     },
+    revisePush: function(...rest){
+        for (i = 0; i < rest.length; i = i + 1){
+            this.content[this.length] = rest[i];
+            this.length = this.length + 1;
+        }
+            return this.length;
+    },
+    reviseUnshift: function(...rest){
+        for (i = this.length - 1; i >= 0; i = i - 1){
+            this.content[i+rest.length] = this.content[i];
+        }
+        for (i = 0; i < rest.length; i = i + 1){
+            this.content[i] = rest[i];
+            this.length = this.length + 1;
+        }
+        return this.length;
+    },
 }
 
-let combinedArray = arr.content.concat(2, 3, [5, 6], [[7],[8]]);
-console.log(combinedArray);
+let newArrayLength = arr.reviseUnshift(5, 6, 7);
+console.log(newArrayLength, arr.content);
