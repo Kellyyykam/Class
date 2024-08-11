@@ -1,22 +1,22 @@
 
 const arr = {
-    content: [1, 2, 4, 8, 16],
-    length: 5,
-    push: function(element){
-        // append element to content end
-        this.content[this.length] = element;
-        // update length
-        this.length = this.length + 1;
-        return this.length;
-    },
-    unshift: function(element){
-        // append element to content start
-        for (let i = this.length - 1; i >= 0; i = i - 1){
-            this.content[i+1] = this.content[i];
+    content: ['Fire', 'Water', 'Wind', 'Earth'],
+    length: 4,
+    push: function(...rest){
+        for (i = 0; i < rest.length; i = i + 1){
+            this.content[this.length] = rest[i];
+            this.length = this.length + 1;
         }
-        this.content[0] = element;
-        // update length
-        this.length = this.length + 1;
+            return this.length;
+    },
+    unshift: function(...rest){
+        for (i = this.length - 1; i >= 0; i = i - 1){
+            this.content[i+rest.length] = this.content[i];
+        }
+        for (i = 0; i < rest.length; i = i + 1){
+            this.content[i] = rest[i];
+            this.length = this.length + 1;
+        }
         return this.length;
     },
     slice: function(start, end){
@@ -114,24 +114,37 @@ const arr = {
         }
         return newArray
     },
-    revisePush: function(...rest){
-        for (i = 0; i < rest.length; i = i + 1){
-            this.content[this.length] = rest[i];
-            this.length = this.length + 1;
+    reverse: function(){
+        let newArray = [];
+        for (let i = 0; i < this.length; i = i +1){
+            newArray.unshift(this.content[i]);
         }
-            return this.length;
+        for (let j = 0; j < this.length; j = j + 1){
+            this.content[j] = newArray[j];
+        }
+        return this.content;
     },
-    reviseUnshift: function(...rest){
-        for (i = this.length - 1; i >= 0; i = i - 1){
-            this.content[i+rest.length] = this.content[i];
+    flat: function(){
+        function flattenArr (arr){
+            let flatArr = [];
+            for (let i = 0; i < arr.length; i = i + 1){
+                if (!Array.isArray(arr[i])){
+                    flatArr.push(arr[i]);
+                } else {
+                    let new2Arr = flattenArr(arr[i]);
+                    flatArr = flatArr.concat(new2Arr);
+                }
+            } 
+            return flatArr;
         }
-        for (i = 0; i < rest.length; i = i + 1){
-            this.content[i] = rest[i];
-            this.length = this.length + 1;
-        }
-        return this.length;
+        return flattenArr(this.content);
     },
-}
+    join: function(symbol = ','){
 
-let newArrayLength = arr.reviseUnshift(5, 6, 7);
-console.log(newArrayLength, arr.content);
+        let output = this.content[0];
+        for (let i = 1; i < this.length; i = i + 1){
+            output = output + symbol + this.content[i];
+        } return output
+    }
+}
+console.log(arr.join(' + '));
