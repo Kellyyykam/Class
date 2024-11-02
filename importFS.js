@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+
 let filePath = process.argv[2];
 function readFile(filePath){
     return new Promise(function(resolve,reject){
@@ -49,3 +51,44 @@ function readPlainDirFiles(folderName, fileExt){
     })
 }
 console.log(await readPlainDirFiles('./src','.eml'));
+
+fs.readdir('src/',{recursive: true, withFileTypes: true}, async (err, files)=> {
+    files = files.filter(function(file){
+        return file.isFile();
+    })
+    files = files.map(function(file){
+        return path.join(file.path,file.name);
+    });
+    console.log(files);
+    for (let i = 0; i < files.length; i = i + 1){
+        let content = await readFile(files[i]);
+        console.log(content);
+    } 
+})
+
+function readFile (filePath){
+   return new Promise(function(resolve, reject){
+       fs.readFile(filePath, 'utf8', (err, data) => {
+           if (err){
+               reject(err);
+           }
+            resolve(data);
+        })
+    })
+}
+
+// // let file = await readFile('src/example.json');
+// // console.log(file);
+
+// fs.readdir('src/',{recursive: true, withFileTypes: true}, (err, files)=> {
+//     // let output = files.filter(function(file){
+//     //     return file.endsWith('.csv');
+//     // });
+//     // console.log(output);
+//     files.forEach(file => {
+//         return file.isFile();
+//     })
+//     console.log(files);
+// })
+
+
