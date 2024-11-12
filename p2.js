@@ -46,6 +46,7 @@ const arr = {
         return false;
     },
     some: function(searchFunction){
+        // check if at least one element in an array passes a certain condition
         let result = false;
         for (let i = 0; i < this.length; i = i + 1){
             if (searchFunction(this.content[i],i)){
@@ -55,6 +56,7 @@ const arr = {
         return result;
     },
     every: function(searchFunction){
+        // check if all elements in an array pass a certain condition
         let result = true;
         for (let i = 0; i < this.length; i = i + 1){
             result = result && searchFunction(this.content[i],i)
@@ -70,6 +72,7 @@ const arr = {
         return undefined;
     },
     findIndex: function(searchFunction){
+        // first index of a specific element in an array
         for (let i = 0; i < this.length; i = i + 1){
             if (searchFunction(this.content[i],i)){
                 return i;
@@ -86,6 +89,7 @@ const arr = {
         return undefined;
     },
     filter: function(searchFunction){
+        // create a new array that contains only the elements passing a certain condition
         let newArray = [];
         for (let i = 0; i < this.length; i = i + 1){
             if (searchFunction(this.content[i],i)){
@@ -95,6 +99,7 @@ const arr = {
         return newArray
     },
     map: function(processingFunction){
+        // create a new array by applying a function to each element of the original array
         let newArray = [];
         for (let i = 0; i < this.length; i = i + 1){
             newArray.push(processingFunction(this.content[i],i));
@@ -102,6 +107,7 @@ const arr = {
         return newArray
     },
     concat: function(...rest){
+        // merge two or more arrays into a single array
         let newArray = [];
         for (let i = 0; i < rest.length; i = i + 1){
             if (Array.isArray(rest[i])){
@@ -115,6 +121,7 @@ const arr = {
         return newArray
     },
     reverse: function(){
+        // reverse the order of the elements in an array
         let newArray = [];
         for (let i = 0; i < this.length; i = i +1){
             newArray.unshift(this.content[i]);
@@ -140,7 +147,7 @@ const arr = {
         return flattenArr(this.content);
     },
     join: function(symbol = ','){
-
+        // join all elements of an array into a string
         let output = this.content[0];
         for (let i = 1; i < this.length; i = i + 1){
             output = output + symbol + this.content[i];
