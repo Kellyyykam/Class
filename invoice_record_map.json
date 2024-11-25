@@ -1,0 +1,9 @@
+{
+    "invoice_no": 0,
+    "invoice_date": 1,
+    "supplier": 2,
+    "expense_type": 3,
+    "net_amount": 4,
+    "gst": 5,
+    "gross_amount": 6
+}
